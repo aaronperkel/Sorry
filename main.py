@@ -1,11 +1,13 @@
 from deck import Deck
 from player import Player
+from board import Board
 import time
 
 class Game:
     def __init__(self):
         self.players = []
         self.deck = Deck()
+        self.board = Board()
         self.setup_game()
 
     def setup_game(self):
@@ -15,10 +17,13 @@ class Game:
         print('=============================================\n\n')
 
         while True:
-            num_players = int(input("Enter the number of players (2-4): "))
-            if num_players in [2, 3, 4]:
-                break
-            else:
+            try:
+                num_players = int(input("Enter the number of players (2-4): "))
+                if num_players in [2, 3, 4]:
+                    break
+                else:
+                    print("Invalid number of players. Please enter 2, 3, or 4.")
+            except ValueError:
                 print("Invalid number of players. Please enter 2, 3, or 4.")
 
         for i in range(num_players):
@@ -32,10 +37,11 @@ class Game:
         card = self.deck.draw_card()
         print(f"Drawn card: {card}")
         print('=====================================')
-        time.sleep(3)
-        
-        # Add logic to move pawns based on the card
-        # Prompt the player for which pawn to move
+
+        # Add logic to select a pawn and move it based on the card drawn
+        # Example: for now, just move the first pawn
+        player.move_pawn(self.board, 0, card.value)  # Basic movement logic
+        print(self.board)
 
     def play_game(self):
         game_over = False
