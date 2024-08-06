@@ -28,7 +28,6 @@ class Game:
         # Example: for now, just move the first pawn
         card = self.deck.draw_card()
         player.move_pawn(self.board, 0, card.value)  # Basic movement logic
-        print(self.board)
 
     def play_game(self):
         game_over = False
@@ -41,8 +40,25 @@ class Game:
                     pg.quit()
                     sys.exit()
 
-            for rect in self.board.squares:
-                pg.draw.rect(self.screen, (255, 255, 255), rect, 0, 6)
+            for rect, element in self.board.squares:
+                if element == 1:
+                    pg.draw.rect(self.screen, (188, 192, 219), (rect[0] - 8, rect[1] - 8, rect[2] + 16, rect[3] + 16), 0, 6)
+
+            for rect, element in self.board.squares:
+                match element:
+                    case 1:
+                        color = (229, 232, 246)
+                    case 2:
+                        color = (214, 213, 69)
+                    case 3:
+                        color = (108, 161, 66)
+                    case 4:
+                        color = (70, 156, 235)
+                    case 5:
+                        color = (195, 43, 47)
+                    case _:
+                        color = (0, 0, 0)
+                pg.draw.rect(self.screen, color, rect, 0, 6)
 
             pg.display.update()
 
