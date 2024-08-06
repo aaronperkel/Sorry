@@ -1,7 +1,27 @@
+import pygame as pg
+
 class Board:
     def __init__(self):
-        # Initialize the board positions
-        self.board_positions = [None] * 60  # Example: a circular board with 60 positions
+        self.board_positions = [[1] * 16] + [[1] + [0] * 14 + [1] for _ in range(14)] + [[1] * 16]
+        self.squares = []
+        self.createSquares()
+
+    def createSquares(self):
+        screen_size = 900
+        grid_size = len(self.board_positions)
+        padding = 12
+        available_space = screen_size - 2 * padding
+        square_size = available_space // grid_size
+        xLoc, yLoc = padding, padding
+        for row in self.board_positions:
+            xLoc = padding
+            for element in row:
+                if element == 1:
+                    self.squares.append(pg.Rect(xLoc, yLoc, square_size, square_size))
+                xLoc += square_size
+            yLoc += square_size
+
+
 
     def move_pawn(self, pawn, spaces):
         current_pos = pawn.position
@@ -28,5 +48,5 @@ class Board:
         self.board_positions[new_pos] = pawn  # Set new position
         pawn.position = new_pos
 
-    def __str__(self):
-        return "Board positions: " + str(self.board_positions)
+    def __str__(self):     
+        return '\n'.join(' '.join(map(str, row)) for row in self.board_positions)
