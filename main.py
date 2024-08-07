@@ -48,17 +48,20 @@ class Game:
                 match element:
                     case 1:
                         color = (229, 232, 246)
-                    case 2:
+                    case 2 | 6:
                         color = (214, 213, 69)
-                    case 3:
+                    case 3 | 7:
                         color = (108, 161, 66)
-                    case 4:
+                    case 4 | 8:
                         color = (70, 156, 235)
-                    case 5:
+                    case 5 | 9:
                         color = (195, 43, 47)
                     case _:
                         color = (0, 0, 0)
-                pg.draw.rect(self.screen, color, rect, 0, 6)
+                if element in [1, 2, 3, 4, 5]:
+                    pg.draw.rect(self.screen, color, rect, 0, 6)
+                else:
+                    pg.draw.circle(self.screen, color, (rect[0] + (rect[2] // 2), rect[1] + rect[3]), 64)
 
             pg.display.update()
 

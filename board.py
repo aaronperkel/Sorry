@@ -25,6 +25,8 @@ class Board:
     def create_zones(self):
         for col in range(1, 6):
             self.board_positions[col][2] = 2
+        self.board_positions[6][2] = 6
+        self.board_positions[1][4] = 6
 
         for row in range(10, 15):
             self.board_positions[2][row] = 3
